@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList } from "react-native";
 import FormInput from "./Components/FormInput";
 import Header from "./Components/Header";
 import TodoList from "./Components/TodoList";
+import { v4 as uuidv4 } from 'uuid'
 
 export default function App() {
   const [todoList, setTodoList] = useState([
@@ -19,16 +20,16 @@ export default function App() {
   }, []);
 
   const handleAddNewTodo = (text) => {
-    clearText();
     setTodoList((list) => {
       if (text !== "") {
         return [
-          { text: text, key: Math.random().toString(36).substring(5) },
+          { text: text, key: uuidv4() },
           ...list,
         ];
       }
       return [...list];
     });
+    clearText(text);
   };
   const deleteTodo = (key) => {
     setTodoList((list) => {
